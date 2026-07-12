@@ -7,7 +7,7 @@ export type Lang = 'hi' | 'en';
 export class LanguageService {
   private translate = inject(TranslateService);
 
-  readonly current = signal<Lang>((localStorage.getItem('lang') as Lang) ?? 'hi');
+  readonly current = signal<Lang>((localStorage.getItem('lang') as Lang) ?? 'en');
 
   constructor() {
     this.apply(this.current());

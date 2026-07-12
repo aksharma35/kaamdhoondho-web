@@ -3,10 +3,10 @@ import { inject, Provider } from '@angular/core';
 import { provideTranslateService, provideTranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from './translate-http-loader';
 
-/** Hindi is the default at launch; English is the fallback. See RFQ §5.2. */
+/** English is the default; Hindi via the EN|HI toggle. See RFQ §5.2. */
 export function provideI18n(): Provider[] {
   return provideTranslateService({
-    lang: 'hi',
+    lang: 'en',
     fallbackLang: 'en',
     loader: provideTranslateLoader(() => new TranslateHttpLoader(inject(HttpClient))),
   });

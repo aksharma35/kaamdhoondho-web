@@ -9,13 +9,9 @@
     </a>
 
     <h1 class="font-extrabold text-2xl text-[#1e2d2c] mt-8">
-      @if (role === 'worker') {
-        Find a Job / खोजें काम
-      } @else {
-        Hire Someone / हायर करें
-      }
+      {{ (role === 'worker' ? 'login.titleWorker' : 'login.titleEmployer') | translate }}
     </h1>
-    <p class="text-[#6b8280] mt-2">Enter your mobile number / अपना मोबाइल नंबर डालें</p>
+    <p class="text-[#6b8280] mt-2">{{ 'login.subtitle' | translate }}</p>
 
     <div class="flex items-center gap-2 border border-[#d8e8e6] rounded-xl px-4 py-3 mt-6 focus-within:border-[#0f5c56]">
       <span class="text-[#1e2d2c] font-semibold">+91</span>
@@ -32,9 +28,7 @@
     </div>
 
     @if (error()) {
-      <p class="text-red-600 text-sm mt-2">
-        Please enter a valid 10-digit mobile number / सही 10 अंकों का नंबर डालें
-      </p>
+      <p class="text-red-600 text-sm mt-2">{{ 'login.error' | translate }}</p>
     }
 
     <button
@@ -42,11 +36,9 @@
       (click)="continue(phone.value)"
       class="w-full bg-[#ff8a3d] text-white font-semibold rounded-full py-4 mt-6"
     >
-      Send OTP / OTP भेजें
+      {{ 'login.send' | translate }}
     </button>
 
-    <p class="text-[#6b8280] text-xs text-center mt-4">
-      OTP verification arrives with the backend — this is a preview build.
-    </p>
+    <p class="text-[#6b8280] text-xs text-center mt-4">{{ 'login.note' | translate }}</p>
   </div>
 </div>

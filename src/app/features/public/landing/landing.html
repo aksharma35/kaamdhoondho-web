@@ -2,59 +2,56 @@
   <!-- Hero -->
   <section class="bg-[#0f5c56] px-6 sm:px-10 py-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
     <div class="max-w-xl">
-      <h1 class="text-white font-extrabold text-5xl leading-tight">Find Work. Find Workers.</h1>
-      <p class="text-[#ffd166] text-3xl mt-2">अपना काम, अपनी पहचान</p>
-      <p class="text-[#d7ece9] text-lg mt-6">
-        Connecting carpenters, drivers, cooks, electricians, house help and more with the people
-        who need them, right in your neighbourhood.
-      </p>
-      <p class="text-[#d7ece9] text-base mt-2">
-        कारपेंटर, ड्राइवर, रसोइया, इलेक्ट्रीशियन और घर के काम करने वालों को उनके पास के नियोक्ताओं
-        से जोड़ना।
-      </p>
+      <h1 class="text-white font-extrabold text-5xl leading-tight">
+        {{ 'landing.hero.title' | translate }}
+      </h1>
+      <p class="text-[#ffd166] text-3xl mt-2">{{ 'landing.hero.tagline' | translate }}</p>
+      <p class="text-[#d7ece9] text-lg mt-6">{{ 'landing.hero.description' | translate }}</p>
       <div class="flex flex-col sm:flex-row gap-4 mt-8">
         <a
           [routerLink]="['/auth/login']"
           [queryParams]="{ role: 'worker' }"
           class="bg-[#ff8a3d] text-white font-semibold rounded-full px-8 py-4 text-center whitespace-nowrap"
         >
-          Find a Job / खोजें काम
+          {{ 'landing.cta.worker' | translate }}
         </a>
         <a
           [routerLink]="['/auth/login']"
           [queryParams]="{ role: 'employer' }"
           class="bg-white text-[#0f5c56] font-semibold rounded-full px-8 py-4 text-center whitespace-nowrap"
         >
-          Hire Someone / हायर करें
+          {{ 'landing.cta.employer' | translate }}
         </a>
       </div>
     </div>
 
     <div class="bg-[#1b6f69] rounded-3xl p-8">
       <div class="grid grid-cols-5 gap-4">
-        @for (c of categories; track c.en) {
+        @for (c of categories; track c.key) {
           <div class="bg-[#e3f3f1] rounded-full aspect-square flex items-center justify-center text-3xl">
             {{ c.emoji }}
           </div>
         }
       </div>
-      <p class="text-[#c9e8e4] text-sm text-center mt-6">Diverse trades, one trusted platform</p>
+      <p class="text-[#c9e8e4] text-sm text-center mt-6">{{ 'landing.hero.trades' | translate }}</p>
     </div>
   </section>
 
   <!-- Categories -->
   <section class="bg-white px-6 sm:px-10 py-20 text-center">
-    <h2 class="font-extrabold text-4xl text-[#1e2d2c]">What kind of help do you need?</h2>
-    <p class="text-[#0f5c56] text-2xl mt-3">आपको किस तरह की मदद चाहिए?</p>
+    <h2 class="font-extrabold text-4xl text-[#1e2d2c]">
+      {{ 'landing.categories.title' | translate }}
+    </h2>
 
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 mt-12 max-w-6xl mx-auto">
-      @for (c of categories; track c.en) {
+      @for (c of categories; track c.key) {
         <div class="bg-[#fcfdfd] border border-[#e4eceb] rounded-2xl py-8 px-4">
           <div class="bg-[#e3f3f1] size-16 rounded-full flex items-center justify-center text-3xl mx-auto">
             {{ c.emoji }}
           </div>
-          <p class="font-semibold text-[#1e2d2c] mt-4">{{ c.en }}</p>
-          <p class="text-[#6b8280] text-sm mt-1">{{ c.hi }}</p>
+          <p class="font-semibold text-[#1e2d2c] mt-4">
+            {{ 'landing.categories.' + c.key | translate }}
+          </p>
         </div>
       }
     </div>
@@ -62,57 +59,45 @@
 
   <!-- Video walkthrough -->
   <section class="bg-[#eaf6f5] px-6 sm:px-10 py-20 text-center">
-    <p class="text-[#0f5c56] text-3xl">देखिए, कामढूंढो कैसे काम करता है</p>
-    <p class="text-[#6b8280] text-base mt-2">See How Kaamdhoondo Works</p>
+    <h2 class="text-[#0f5c56] text-3xl font-bold">{{ 'landing.video.title' | translate }}</h2>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12 max-w-5xl mx-auto items-stretch">
       <div class="bg-[#1b6f69] rounded-3xl shadow-lg flex flex-col items-center justify-center gap-4 py-16">
         <span class="text-7xl">🧕🏽</span>
         <button
           type="button"
-          aria-label="Play video / वीडियो चलाएं"
+          [attr.aria-label]="'landing.video.watch' | translate"
           class="size-16 rounded-full bg-white/20 border-2 border-white flex items-center justify-center text-white text-2xl"
         >
           ▶
         </button>
-        <p class="text-[#c9e8e4] text-sm">हिंदी में देखें / Watch in Hindi</p>
+        <p class="text-[#c9e8e4] text-sm">{{ 'landing.video.watch' | translate }}</p>
       </div>
 
       <div class="bg-white border border-[#d8e8e6] rounded-2xl p-8 text-left flex flex-col justify-center gap-6">
-        <div>
-          <p class="font-bold text-[#1e2d2c]">कामढूंढो खोलें और अपनी भाषा चुनें</p>
-          <p class="text-[#6b8280] text-sm mt-1">Open Kaamdhoondo and choose your language</p>
-        </div>
-        <div>
-          <p class="font-bold text-[#1e2d2c]">अपना नंबर डालकर प्रोफ़ाइल बनाएं</p>
-          <p class="text-[#6b8280] text-sm mt-1">Enter your number to create a profile</p>
-        </div>
-        <div class="bg-[#e3f3f1] border-l-4 border-[#ff8a3d] rounded-lg p-4">
-          <p class="font-bold text-[#1e2d2c]">अपना काम या ज़रूरत चुनें</p>
-          <p class="text-[#6b8280] text-sm mt-1">Select your work or requirement</p>
-        </div>
-        <div>
-          <p class="font-bold text-[#1e2d2c]">पास के लोगों से सीधे जुड़ें</p>
-          <p class="text-[#6b8280] text-sm mt-1">Connect directly with people nearby</p>
-        </div>
+        @for (s of steps; track s) {
+          <div [class]="s === 3 ? 'bg-[#e3f3f1] border-l-4 border-[#ff8a3d] rounded-lg p-4' : ''">
+            <p class="font-bold text-[#1e2d2c]">{{ 'landing.video.step' + s | translate }}</p>
+          </div>
+        }
       </div>
     </div>
   </section>
 
   <!-- Testimonials -->
   <section class="bg-white px-6 sm:px-10 py-20 text-center">
-    <p class="text-[#0f5c56] text-3xl">असली लोग, असली कहानियाँ</p>
-    <p class="text-[#6b8280] text-base mt-2">Real People, Real Stories</p>
+    <h2 class="text-[#0f5c56] text-3xl font-bold">{{ 'landing.stories.title' | translate }}</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-6xl mx-auto">
-      @for (t of testimonials; track t.name) {
+      @for (t of stories; track t.i) {
         <div class="bg-white border border-[#d8e8e6] rounded-2xl shadow-sm p-8">
           <div class="bg-[#fcece0] size-20 rounded-full flex items-center justify-center text-4xl mx-auto">
             {{ t.emoji }}
           </div>
-          <p class="font-bold text-[#1e2d2c] text-sm mt-6">{{ t.name }}</p>
-          <p class="font-bold text-[#1e2d2c] text-sm mt-2">{{ t.quoteHi }}</p>
-          <p class="text-[#6b8280] text-xs mt-1">{{ t.quoteEn }}</p>
+          <p class="font-bold text-[#1e2d2c] text-sm mt-6">
+            {{ 'landing.stories.name' + t.i | translate }}
+          </p>
+          <p class="text-[#6b8280] text-sm mt-2">{{ 'landing.stories.quote' + t.i | translate }}</p>
           <p class="text-[#ff8a3d] mt-6">★ ★ ★ ★ ★</p>
         </div>
       }
@@ -121,25 +106,23 @@
 
   <!-- How it works -->
   <section class="bg-[#eaf6f5] px-6 sm:px-10 py-20">
-    <div class="text-center">
-      <h2 class="font-extrabold text-4xl text-[#0f5c56]">How It Works</h2>
-      <p class="text-[#1e2d2c] text-2xl mt-2">यह कैसे काम करता है</p>
-    </div>
+    <h2 class="font-extrabold text-4xl text-[#0f5c56] text-center">
+      {{ 'landing.how.title' | translate }}
+    </h2>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-14 max-w-5xl mx-auto">
       <div>
         <div class="bg-[#ff8a3d] h-1.5 w-12 rounded-full"></div>
-        <p class="font-bold text-[#0f5c56] text-xl mt-4">For Job Seekers / कामगारों के लिए</p>
+        <p class="font-bold text-[#0f5c56] text-xl mt-4">{{ 'landing.how.seekers' | translate }}</p>
         <ol class="mt-6 space-y-6">
-          @for (step of seekerSteps; track $index) {
-            <li class="flex gap-4">
+          @for (s of steps; track s) {
+            <li class="flex gap-4 items-center">
               <span class="size-10 rounded-full bg-[#ff8a3d] text-white font-bold flex items-center justify-center shrink-0">
-                {{ $index + 1 }}
+                {{ s }}
               </span>
-              <div>
-                <p class="font-semibold text-[#1e2d2c]">{{ step[0] }}</p>
-                <p class="text-[#6b8280] text-sm mt-1">{{ step[1] }}</p>
-              </div>
+              <p class="font-semibold text-[#1e2d2c]">
+                {{ 'landing.how.seeker' + s | translate }}
+              </p>
             </li>
           }
         </ol>
@@ -147,17 +130,18 @@
 
       <div>
         <div class="bg-[#0f5c56] h-1.5 w-12 rounded-full"></div>
-        <p class="font-bold text-[#0f5c56] text-xl mt-4">For Employers / नियोक्ताओं के लिए</p>
+        <p class="font-bold text-[#0f5c56] text-xl mt-4">
+          {{ 'landing.how.employers' | translate }}
+        </p>
         <ol class="mt-6 space-y-6">
-          @for (step of employerSteps; track $index) {
-            <li class="flex gap-4">
+          @for (s of steps; track s) {
+            <li class="flex gap-4 items-center">
               <span class="size-10 rounded-full bg-[#0f5c56] text-white font-bold flex items-center justify-center shrink-0">
-                {{ $index + 1 }}
+                {{ s }}
               </span>
-              <div>
-                <p class="font-semibold text-[#1e2d2c]">{{ step[0] }}</p>
-                <p class="text-[#6b8280] text-sm mt-1">{{ step[1] }}</p>
-              </div>
+              <p class="font-semibold text-[#1e2d2c]">
+                {{ 'landing.how.employer' + s | translate }}
+              </p>
             </li>
           }
         </ol>

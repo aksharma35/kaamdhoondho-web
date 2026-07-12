@@ -1,9 +1,80 @@
 {
-  "app": {
-    "name": "Kaamdhoondo"
-  },
   "landing": {
-    "find_job": "Find a Job",
-    "hire_someone": "Hire Someone"
+    "hero": {
+      "title": "Find Work. Find Workers.",
+      "tagline": "Your work, your identity",
+      "description": "Connecting carpenters, drivers, cooks, electricians, house help and more with the people who need them, right in your neighbourhood.",
+      "trades": "Diverse trades, one trusted platform"
+    },
+    "cta": {
+      "worker": "Find a Job",
+      "employer": "Hire Someone"
+    },
+    "categories": {
+      "title": "What kind of help do you need?",
+      "carpenter": "Carpenter",
+      "houseHelp": "House Help",
+      "driver": "Driver",
+      "cook": "Cook",
+      "electrician": "Electrician",
+      "securityGuard": "Security Guard",
+      "gardener": "Gardener",
+      "coach": "Coach / Trainer",
+      "plumber": "Plumber",
+      "painter": "Painter"
+    },
+    "video": {
+      "title": "See How Kaamdhoondo Works",
+      "watch": "Watch in Hindi",
+      "step1": "Open Kaamdhoondo and choose your language",
+      "step2": "Enter your number to create a profile",
+      "step3": "Select your work or requirement",
+      "step4": "Connect directly with people nearby"
+    },
+    "stories": {
+      "title": "Real People, Real Stories",
+      "name1": "Anita, House Help, Noida",
+      "quote1": "Kaamdhoondo got me 3 jobs in one week!",
+      "name2": "Ramesh, Electrician, Delhi",
+      "quote2": "Now I get new customers every week.",
+      "name3": "Sunita ji, Shop Owner, Ghaziabad",
+      "quote3": "I easily found good staff for my shop."
+    },
+    "how": {
+      "title": "How It Works",
+      "seekers": "For Job Seekers",
+      "employers": "For Employers",
+      "seeker1": "Create profile with phone number",
+      "seeker2": "Select your skills & category",
+      "seeker3": "Get matched with nearby jobs",
+      "seeker4": "Connect directly with employer",
+      "employer1": "Post your job requirement",
+      "employer2": "Browse & get matched with nearby workers",
+      "employer3": "Contact directly via call or chat",
+      "employer4": "Hire and rate"
+    }
+  },
+  "footer": {
+    "workers": "Workers Registered",
+    "businesses": "Businesses & Homes",
+    "cities": "Cities Covered",
+    "quote": "\"Kaamdhoondo helped me find 3 cleaning jobs in my area within a week!\"",
+    "quoteBy": "— Anita, house help, Noida",
+    "copyright": "© 2026 Kaamdhoondo — All rights reserved"
+  },
+  "login": {
+    "titleWorker": "Find a Job",
+    "titleEmployer": "Hire Someone",
+    "subtitle": "Enter your mobile number",
+    "error": "Please enter a valid 10-digit mobile number",
+    "send": "Send OTP",
+    "note": "OTP verification arrives with the backend — this is a preview build."
+  },
+  "home": {
+    "logout": "Logout",
+    "workerTitle": "Find Work",
+    "workerEmpty": "Nearby jobs will appear here.",
+    "employerTitle": "Marketplace",
+    "employerEmpty": "Nearby workers will appear here."
   }
 }
