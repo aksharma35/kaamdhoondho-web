@@ -1,4 +1,4 @@
-<header class="flex items-center justify-between h-[88px] px-6 sm:px-10 border-b border-[#d8e8e6] bg-white">
+<header class="sticky top-0 z-50 flex items-center justify-between h-[72px] sm:h-[88px] px-6 sm:px-10 border-b border-[#d8e8e6] bg-white/95 backdrop-blur">
   <a routerLink="/" class="flex items-center gap-3">
     <span class="text-3xl">🛠️</span>
     <div>
@@ -10,7 +10,7 @@
     type="button"
     (click)="lang.toggle()"
     [attr.aria-label]="lang.current() === 'hi' ? 'Switch to English' : 'हिंदी में बदलें'"
-    class="bg-[#e3f3f1] text-sm rounded-full px-5 py-2"
+    class="bg-[#e3f3f1] text-sm rounded-full px-5 py-2 transition hover:bg-[#d3ebe7] focus-visible:outline-2 focus-visible:outline-[#0f5c56]"
   >
     <span [class]="lang.current() === 'en' ? 'font-bold text-[#0f5c56]' : 'text-[#6b8280]'">EN</span>
     <span class="text-[#6b8280]">&nbsp;|&nbsp;</span>
