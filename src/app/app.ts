@@ -1,18 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LanguageService } from './core/i18n/language.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TranslatePipe],
-  templateUrl: './app.html',
-  styleUrl: './app.scss',
+  imports: [RouterOutlet],
+  template: '<router-outlet />',
 })
 export class App {
-  constructor(translate: TranslateService) {
-    const savedLang = localStorage.getItem('lang');
-    if (savedLang) {
-      translate.use(savedLang);
-    }
-  }
+  // instantiated here so the saved language is restored on boot
+  protected readonly lang = inject(LanguageService);
 }

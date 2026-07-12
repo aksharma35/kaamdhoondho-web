@@ -1,0 +1,19 @@
+<header class="flex items-center justify-between h-[88px] px-6 sm:px-10 border-b border-[#d8e8e6] bg-white">
+  <a routerLink="/" class="flex items-center gap-3">
+    <span class="text-3xl">🛠️</span>
+    <div>
+      <p class="font-bold text-2xl text-[#0f5c56] leading-none">Kaamdhoondo</p>
+      <p class="text-sm text-[#6b8280] leading-none mt-1">कामढूंढो</p>
+    </div>
+  </a>
+  <button
+    type="button"
+    (click)="lang.toggle()"
+    [attr.aria-label]="lang.current() === 'hi' ? 'Switch to English' : 'हिंदी में बदलें'"
+    class="bg-[#e3f3f1] text-sm rounded-full px-5 py-2"
+  >
+    <span [class]="lang.current() === 'en' ? 'font-bold text-[#0f5c56]' : 'text-[#6b8280]'">EN</span>
+    <span class="text-[#6b8280]">&nbsp;|&nbsp;</span>
+    <span [class]="lang.current() === 'hi' ? 'font-bold text-[#0f5c56]' : 'text-[#6b8280]'">HI</span>
+  </button>
+</header>

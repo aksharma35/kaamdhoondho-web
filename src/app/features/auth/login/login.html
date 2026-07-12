@@ -1,0 +1,52 @@
+<div class="min-h-screen bg-[#fffbf2] flex items-center justify-center px-4">
+  <div class="bg-white border border-[#d8e8e6] rounded-3xl shadow-sm w-full max-w-md p-8">
+    <a routerLink="/" class="flex items-center gap-3">
+      <span class="text-3xl">🛠️</span>
+      <div>
+        <p class="font-bold text-xl text-[#0f5c56] leading-none">Kaamdhoondo</p>
+        <p class="text-sm text-[#6b8280] leading-none mt-1">कामढूंढो</p>
+      </div>
+    </a>
+
+    <h1 class="font-extrabold text-2xl text-[#1e2d2c] mt-8">
+      @if (role === 'worker') {
+        Find a Job / खोजें काम
+      } @else {
+        Hire Someone / हायर करें
+      }
+    </h1>
+    <p class="text-[#6b8280] mt-2">Enter your mobile number / अपना मोबाइल नंबर डालें</p>
+
+    <div class="flex items-center gap-2 border border-[#d8e8e6] rounded-xl px-4 py-3 mt-6 focus-within:border-[#0f5c56]">
+      <span class="text-[#1e2d2c] font-semibold">+91</span>
+      <input
+        #phone
+        type="tel"
+        inputmode="numeric"
+        maxlength="10"
+        placeholder="98765 43210"
+        class="flex-1 outline-none bg-transparent text-[#1e2d2c]"
+        (input)="error.set(false)"
+        (keyup.enter)="continue(phone.value)"
+      />
+    </div>
+
+    @if (error()) {
+      <p class="text-red-600 text-sm mt-2">
+        Please enter a valid 10-digit mobile number / सही 10 अंकों का नंबर डालें
+      </p>
+    }
+
+    <button
+      type="button"
+      (click)="continue(phone.value)"
+      class="w-full bg-[#ff8a3d] text-white font-semibold rounded-full py-4 mt-6"
+    >
+      Send OTP / OTP भेजें
+    </button>
+
+    <p class="text-[#6b8280] text-xs text-center mt-4">
+      OTP verification arrives with the backend — this is a preview build.
+    </p>
+  </div>
+</div>
