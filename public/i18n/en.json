@@ -76,5 +76,69 @@
     "workerEmpty": "Nearby jobs will appear here.",
     "employerTitle": "Marketplace",
     "employerEmpty": "Nearby workers will appear here."
+  },
+  "onb": {
+    "step": "Step {{n}} of {{total}}",
+    "continue": "Continue",
+    "edit": "Edit",
+    "confirm": "Confirm",
+    "errRequired": "Please fill the required fields",
+    "errSkill": "Select at least one skill",
+    "errCamera": "Camera not available — upload a video instead",
+    "w1": {
+      "title": "Tell us about yourself",
+      "name": "Your name",
+      "age": "Age (optional)",
+      "locality": "Your area / locality",
+      "useLocation": "Use my location",
+      "located": "Location captured"
+    },
+    "w2": {
+      "title": "Tell us your skills",
+      "modeType": "Type it",
+      "modeVideo": "Video",
+      "aiFilled": "AI filled these from your video — please check and edit",
+      "skills": "Your skills",
+      "exp": "Experience (years)",
+      "expPh": "e.g. 3",
+      "pay": "Pay (₹/month)",
+      "note": "Anything else? (optional)",
+      "notePh": "e.g. I can also work on Sundays"
+    },
+    "video": {
+      "instruction": "Speak your name, age, skills and experience out loud",
+      "sample": "Sample format",
+      "tapChoose": "Tap to choose a video",
+      "formats": "MP4, MOV or voice note • max 2 minutes",
+      "recordInstead": "Record a video instead",
+      "stop": "Stop recording",
+      "retake": "Retake",
+      "use": "Use this video",
+      "processing": "Extracting your details…"
+    },
+    "w3": {
+      "title": "Preview your profile",
+      "exp": "{{n}} years experience"
+    },
+    "success": {
+      "title": "Profile created!",
+      "sub": "Nearby jobs will now match you.",
+      "cta": "Find Work"
+    },
+    "e1": {
+      "title": "About you / your business",
+      "kind": "You are hiring as",
+      "individual": "Individual / household",
+      "business": "Business",
+      "name": "Your name / business name"
+    },
+    "e2": {
+      "title": "Review & confirm"
+    },
+    "esuccess": {
+      "title": "Account created!",
+      "sub": "Post your first job to find workers nearby.",
+      "cta": "Go to dashboard"
+    }
   }
 }

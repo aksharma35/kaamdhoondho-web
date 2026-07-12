@@ -1,0 +1,233 @@
+<div class="min-h-screen bg-[#fffbf2] flex justify-center">
+  <div class="w-full max-w-md px-6 py-6">
+    <!-- Header: back + lang -->
+    <div class="flex items-center justify-between">
+      <button type="button" (click)="back()" aria-label="Back" class="text-2xl text-[#0f5c56]">←</button>
+      <button
+        type="button"
+        (click)="lang.toggle()"
+        class="bg-[#e3f3f1] text-sm rounded-full px-4 py-1.5"
+      >
+        <span [class]="lang.current() === 'en' ? 'font-bold text-[#0f5c56]' : 'text-[#6b8280]'">EN</span>
+        <span class="text-[#6b8280]">&nbsp;|&nbsp;</span>
+        <span [class]="lang.current() === 'hi' ? 'font-bold text-[#0f5c56]' : 'text-[#6b8280]'">HI</span>
+      </button>
+    </div>
+
+    @if (step() < 4) {
+      <!-- Progress -->
+      <div class="flex gap-2 mt-5">
+        @for (s of [1, 2, 3]; track s) {
+          <div class="h-1.5 flex-1 rounded-full" [class]="s <= step() ? 'bg-[#0f5c56]' : 'bg-[#d8e8e6]'"></div>
+        }
+      </div>
+      <p class="text-[#6b8280] text-sm mt-3">{{ 'onb.step' | translate: { n: step(), total: 3 } }}</p>
+    }
+
+    <!-- STEP 1: basic details -->
+    @if (step() === 1) {
+      <h1 class="font-extrabold text-2xl text-[#1e2d2c] mt-2">{{ 'onb.w1.title' | translate }}</h1>
+
+      <label class="block mt-8 text-sm font-semibold text-[#1e2d2c]">{{ 'onb.w1.name' | translate }}</label>
+      <input #name [value]="profile.worker().name" type="text"
+        class="w-full bg-[#fdf8ec] border border-[#e4eceb] rounded-xl px-4 py-3 mt-2 outline-none focus:border-[#0f5c56]" />
+
+      <label class="block mt-5 text-sm font-semibold text-[#1e2d2c]">{{ 'onb.w1.age' | translate }}</label>
+      <input #age [value]="profile.worker().age" type="tel" inputmode="numeric" maxlength="2"
+        class="w-32 bg-[#fdf8ec] border border-[#e4eceb] rounded-xl px-4 py-3 mt-2 outline-none focus:border-[#0f5c56]" />
+
+      <label class="block mt-5 text-sm font-semibold text-[#1e2d2c]">{{ 'onb.w1.locality' | translate }}</label>
+      <input #locality [value]="profile.worker().locality" type="text"
+        class="w-full bg-[#fdf8ec] border border-[#e4eceb] rounded-xl px-4 py-3 mt-2 outline-none focus:border-[#0f5c56]" />
+      <button type="button" (click)="captureLocation()" class="mt-2 text-sm text-[#0f5c56] font-semibold">
+        📍 {{ (profile.worker().gps ? 'onb.w1.located' : 'onb.w1.useLocation') | translate }}
+      </button>
+
+      @if (error()) {
+        <p class="text-red-600 text-sm mt-4">{{ error() | translate }}</p>
+      }
+
+      <button type="button" (click)="submitBasics(name.value, age.value, locality.value)"
+        class="w-full bg-[#ff8a3d] text-white font-semibold rounded-full py-4 mt-8 transition hover:bg-[#e97c2f]">
+        {{ 'onb.continue' | translate }}
+      </button>
+    }
+
+    <!-- STEP 2: skills -->
+    @if (step() === 2) {
+      <h1 class="font-extrabold text-2xl text-[#1e2d2c] mt-2">{{ 'onb.w2.title' | translate }}</h1>
+
+      <!-- Mode toggle -->
+      <div class="flex bg-[#f1f5f4] rounded-full p-1 mt-6">
+        <button type="button" (click)="setMode('type')"
+          [class]="'flex-1 rounded-full py-2.5 text-sm font-semibold transition ' + (mode() === 'type' ? 'bg-white text-[#1e2d2c] shadow' : 'text-[#6b8280]')">
+          {{ 'onb.w2.modeType' | translate }}
+        </button>
+        <button type="button" (click)="setMode('video')"
+          [class]="'flex-1 rounded-full py-2.5 text-sm font-semibold transition ' + (mode() === 'video' ? 'bg-white text-[#1e2d2c] shadow' : 'text-[#6b8280]')">
+          {{ 'onb.w2.modeVideo' | translate }}
+        </button>
+      </div>
+
+      @if (mode() === 'type') {
+        @if (aiFilled()) {
+          <div class="bg-[#e3f3f1] border-l-4 border-[#0f5c56] rounded-lg p-3 mt-5 text-sm text-[#1e2d2c]">
+            ✨ {{ 'onb.w2.aiFilled' | translate }}
+          </div>
+        }
+
+        <p class="text-sm font-semibold text-[#1e2d2c] mt-6">{{ 'onb.w2.skills' | translate }}</p>
+        <div class="flex flex-wrap gap-2 mt-3">
+          @for (c of categories; track c.key) {
+            <button type="button" (click)="toggleSkill(c.key)"
+              [class]="'rounded-full px-4 py-2 text-sm border transition ' +
+                (profile.worker().skills.includes(c.key)
+                  ? 'bg-[#cdeae5] border-[#0f5c56] text-[#0f5c56] font-semibold'
+                  : 'bg-white border-[#e4eceb] text-[#1e2d2c]')">
+              {{ c.emoji }} {{ 'landing.categories.' + c.key | translate }}
+              @if (profile.worker().skills.includes(c.key)) { <span>&nbsp;×</span> }
+            </button>
+          }
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-6">
+          <div>
+            <label class="text-sm font-semibold text-[#1e2d2c]">{{ 'onb.w2.exp' | translate }}</label>
+            <input #exp [value]="profile.worker().expYears" type="tel" inputmode="numeric" maxlength="2"
+              [placeholder]="'onb.w2.expPh' | translate"
+              class="w-full bg-[#fdf8ec] border border-[#e4eceb] rounded-xl px-4 py-3 mt-2 outline-none focus:border-[#0f5c56]" />
+          </div>
+          <div>
+            <label class="text-sm font-semibold text-[#1e2d2c]">{{ 'onb.w2.pay' | translate }}</label>
+            <input #pay [value]="profile.worker().pay" type="tel" inputmode="numeric"
+              placeholder="₹ 15,000"
+              class="w-full bg-[#fdf8ec] border border-[#e4eceb] rounded-xl px-4 py-3 mt-2 outline-none focus:border-[#0f5c56]" />
+          </div>
+        </div>
+
+        <label class="block mt-5 text-sm font-semibold text-[#1e2d2c]">{{ 'onb.w2.note' | translate }}</label>
+        <textarea #note rows="3" [value]="profile.worker().note"
+          [placeholder]="'onb.w2.notePh' | translate"
+          class="w-full bg-[#fdf8ec] border border-[#e4eceb] rounded-xl px-4 py-3 mt-2 outline-none focus:border-[#0f5c56]"></textarea>
+
+        @if (error()) {
+          <p class="text-red-600 text-sm mt-3">{{ error() | translate }}</p>
+        }
+
+        <button type="button" (click)="submitSkills(exp.value, pay.value, note.value)"
+          class="w-full bg-[#ff8a3d] text-white font-semibold rounded-full py-4 mt-6 transition hover:bg-[#e97c2f]">
+          {{ 'onb.continue' | translate }}
+        </button>
+      } @else {
+        <!-- VIDEO MODE -->
+        <p class="text-[#6b8280] text-sm mt-6">🎙️ {{ 'onb.video.instruction' | translate }}</p>
+
+        @switch (videoState()) {
+          @case ('choose') {
+            <div class="bg-[#0f5c56] rounded-2xl h-44 mt-5 flex items-center justify-center">
+              <div class="size-14 rounded-full bg-white/25 border-2 border-white flex items-center justify-center text-white text-xl">▶</div>
+            </div>
+            <p class="text-[#6b8280] text-xs text-center mt-2">{{ 'onb.video.sample' | translate }}</p>
+
+            <label class="block bg-[#fdf8ec] border-2 border-dashed border-[#e4d9b8] rounded-2xl mt-6 p-8 text-center cursor-pointer">
+              <span class="inline-flex size-12 rounded-full bg-[#e3f3f1] items-center justify-center text-[#0f5c56] text-xl">↑</span>
+              <p class="font-bold text-[#1e2d2c] mt-3">{{ 'onb.video.tapChoose' | translate }}</p>
+              <p class="text-[#6b8280] text-xs mt-1">{{ 'onb.video.formats' | translate }}</p>
+              <input type="file" accept="video/*,audio/*" class="hidden" (change)="onFile($event)" />
+            </label>
+
+            <button type="button" (click)="startRecording()" class="w-full text-center text-[#0f5c56] font-bold mt-5">
+              🎥 {{ 'onb.video.recordInstead' | translate }}
+            </button>
+          }
+          @case ('recording') {
+            <video #live autoplay muted playsinline class="w-full rounded-2xl mt-5 bg-black aspect-video object-cover"></video>
+            <button type="button" (click)="stopRecording()"
+              class="w-full bg-red-600 text-white font-semibold rounded-full py-4 mt-5">
+              ⏹ {{ 'onb.video.stop' | translate }}
+            </button>
+          }
+          @case ('preview') {
+            <video [src]="videoUrl()" controls playsinline class="w-full rounded-2xl mt-5 bg-black aspect-video"></video>
+            <div class="flex gap-3 mt-5">
+              <button type="button" (click)="retake()"
+                class="flex-1 border-2 border-[#0f5c56] text-[#0f5c56] font-semibold rounded-full py-3.5">
+                {{ 'onb.video.retake' | translate }}
+              </button>
+              <button type="button" (click)="useVideo()"
+                class="flex-1 bg-[#ff8a3d] text-white font-semibold rounded-full py-3.5">
+                {{ 'onb.video.use' | translate }}
+              </button>
+            </div>
+          }
+          @case ('processing') {
+            <div class="bg-white border border-[#d8e8e6] rounded-2xl mt-6 p-10 text-center">
+              <div class="mx-auto size-10 rounded-full border-4 border-[#e3f3f1] border-t-[#0f5c56] animate-spin"></div>
+              <p class="font-bold text-[#1e2d2c] mt-5">{{ 'onb.video.processing' | translate }}</p>
+            </div>
+          }
+        }
+
+        @if (error()) {
+          <p class="text-red-600 text-sm mt-4">{{ error() | translate }}</p>
+        }
+      }
+    }
+
+    <!-- STEP 3: preview -->
+    @if (step() === 3) {
+      <h1 class="font-extrabold text-2xl text-[#1e2d2c] mt-2">{{ 'onb.w3.title' | translate }}</h1>
+
+      <div class="bg-white rounded-3xl overflow-hidden shadow-md border border-[#d8e8e6] mt-6">
+        <div class="bg-[#0f5c56] h-40 flex items-center justify-center text-7xl">
+          {{ profile.worker().hasVideo ? '🎥' : '👷' }}
+        </div>
+        <div class="p-6">
+          <p class="font-extrabold text-xl text-[#1e2d2c]">
+            {{ profile.worker().name }}@if (profile.worker().age) {, {{ profile.worker().age }}}
+          </p>
+          <p class="text-[#6b8280] text-sm mt-1">📍 {{ profile.worker().locality }}</p>
+          <div class="flex flex-wrap gap-2 mt-4">
+            @for (s of profile.worker().skills; track s) {
+              <span class="bg-[#cdeae5] text-[#0f5c56] text-sm rounded-full px-3 py-1.5">
+                {{ 'landing.categories.' + s | translate }}
+              </span>
+            }
+          </div>
+          @if (profile.worker().expYears) {
+            <p class="text-[#6b8280] text-sm mt-4">
+              {{ 'onb.w3.exp' | translate: { n: profile.worker().expYears } }}
+            </p>
+          }
+          @if (profile.worker().pay) {
+            <p class="text-[#6b8280] text-sm mt-1">₹ {{ profile.worker().pay }}</p>
+          }
+        </div>
+      </div>
+
+      <div class="flex gap-3 mt-6">
+        <button type="button" (click)="step.set(2)"
+          class="flex-1 border-2 border-[#0f5c56] text-[#0f5c56] font-semibold rounded-full py-4">
+          {{ 'onb.edit' | translate }}
+        </button>
+        <button type="button" (click)="confirm()"
+          class="flex-1 bg-[#ff8a3d] text-white font-semibold rounded-full py-4">
+          {{ 'onb.confirm' | translate }}
+        </button>
+      </div>
+    }
+
+    <!-- STEP 4: success -->
+    @if (step() === 4) {
+      <div class="text-center pt-24">
+        <div class="mx-auto size-20 rounded-full bg-[#e3f3f1] flex items-center justify-center text-4xl">✅</div>
+        <h1 class="font-extrabold text-2xl text-[#1e2d2c] mt-6">{{ 'onb.success.title' | translate }}</h1>
+        <p class="text-[#6b8280] mt-2">{{ 'onb.success.sub' | translate }}</p>
+        <button type="button" (click)="finish()"
+          class="w-full bg-[#ff8a3d] text-white font-semibold rounded-full py-4 mt-10">
+          {{ 'onb.success.cta' | translate }}
+        </button>
+      </div>
+    }
+  </div>
+</div>

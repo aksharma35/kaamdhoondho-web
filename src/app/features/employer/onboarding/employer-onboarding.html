@@ -1,0 +1,103 @@
+<div class="min-h-screen bg-[#fffbf2] flex justify-center">
+  <div class="w-full max-w-md px-6 py-6">
+    <div class="flex items-center justify-between">
+      <button type="button" (click)="back()" aria-label="Back" class="text-2xl text-[#0f5c56]">←</button>
+      <button
+        type="button"
+        (click)="lang.toggle()"
+        class="bg-[#e3f3f1] text-sm rounded-full px-4 py-1.5"
+      >
+        <span [class]="lang.current() === 'en' ? 'font-bold text-[#0f5c56]' : 'text-[#6b8280]'">EN</span>
+        <span class="text-[#6b8280]">&nbsp;|&nbsp;</span>
+        <span [class]="lang.current() === 'hi' ? 'font-bold text-[#0f5c56]' : 'text-[#6b8280]'">HI</span>
+      </button>
+    </div>
+
+    @if (step() < 3) {
+      <div class="flex gap-2 mt-5">
+        @for (s of [1, 2]; track s) {
+          <div class="h-1.5 flex-1 rounded-full" [class]="s <= step() ? 'bg-[#0f5c56]' : 'bg-[#d8e8e6]'"></div>
+        }
+      </div>
+      <p class="text-[#6b8280] text-sm mt-3">{{ 'onb.step' | translate: { n: step(), total: 2 } }}</p>
+    }
+
+    <!-- STEP 1: business details -->
+    @if (step() === 1) {
+      <h1 class="font-extrabold text-2xl text-[#1e2d2c] mt-2">{{ 'onb.e1.title' | translate }}</h1>
+
+      <p class="text-sm font-semibold text-[#1e2d2c] mt-8">{{ 'onb.e1.kind' | translate }}</p>
+      <div class="grid grid-cols-2 gap-3 mt-3">
+        <button type="button" (click)="setKind('individual')"
+          [class]="'rounded-2xl border-2 p-4 text-center transition ' +
+            (profile.employer().kind === 'individual' ? 'border-[#0f5c56] bg-[#e3f3f1]' : 'border-[#e4eceb] bg-white')">
+          <span class="text-3xl">🏠</span>
+          <p class="font-semibold text-sm mt-2 text-[#1e2d2c]">{{ 'onb.e1.individual' | translate }}</p>
+        </button>
+        <button type="button" (click)="setKind('business')"
+          [class]="'rounded-2xl border-2 p-4 text-center transition ' +
+            (profile.employer().kind === 'business' ? 'border-[#0f5c56] bg-[#e3f3f1]' : 'border-[#e4eceb] bg-white')">
+          <span class="text-3xl">🏢</span>
+          <p class="font-semibold text-sm mt-2 text-[#1e2d2c]">{{ 'onb.e1.business' | translate }}</p>
+        </button>
+      </div>
+
+      <label class="block mt-6 text-sm font-semibold text-[#1e2d2c]">{{ 'onb.e1.name' | translate }}</label>
+      <input #name [value]="profile.employer().name" type="text"
+        class="w-full bg-[#fdf8ec] border border-[#e4eceb] rounded-xl px-4 py-3 mt-2 outline-none focus:border-[#0f5c56]" />
+
+      <label class="block mt-5 text-sm font-semibold text-[#1e2d2c]">{{ 'onb.w1.locality' | translate }}</label>
+      <input #locality [value]="profile.employer().locality" type="text"
+        class="w-full bg-[#fdf8ec] border border-[#e4eceb] rounded-xl px-4 py-3 mt-2 outline-none focus:border-[#0f5c56]" />
+
+      @if (error()) {
+        <p class="text-red-600 text-sm mt-4">{{ error() | translate }}</p>
+      }
+
+      <button type="button" (click)="submitDetails(name.value, locality.value)"
+        class="w-full bg-[#ff8a3d] text-white font-semibold rounded-full py-4 mt-8 transition hover:bg-[#e97c2f]">
+        {{ 'onb.continue' | translate }}
+      </button>
+    }
+
+    <!-- STEP 2: preview -->
+    @if (step() === 2) {
+      <h1 class="font-extrabold text-2xl text-[#1e2d2c] mt-2">{{ 'onb.e2.title' | translate }}</h1>
+
+      <div class="bg-white rounded-3xl shadow-md border border-[#d8e8e6] mt-6 p-6">
+        <div class="size-16 rounded-full bg-[#e3f3f1] flex items-center justify-center text-3xl">
+          {{ profile.employer().kind === 'business' ? '🏢' : '🏠' }}
+        </div>
+        <p class="font-extrabold text-xl text-[#1e2d2c] mt-4">{{ profile.employer().name }}</p>
+        <p class="text-[#6b8280] text-sm mt-1">
+          {{ (profile.employer().kind === 'business' ? 'onb.e1.business' : 'onb.e1.individual') | translate }}
+        </p>
+        <p class="text-[#6b8280] text-sm mt-1">📍 {{ profile.employer().locality }}</p>
+      </div>
+
+      <div class="flex gap-3 mt-6">
+        <button type="button" (click)="step.set(1)"
+          class="flex-1 border-2 border-[#0f5c56] text-[#0f5c56] font-semibold rounded-full py-4">
+          {{ 'onb.edit' | translate }}
+        </button>
+        <button type="button" (click)="confirm()"
+          class="flex-1 bg-[#ff8a3d] text-white font-semibold rounded-full py-4">
+          {{ 'onb.confirm' | translate }}
+        </button>
+      </div>
+    }
+
+    <!-- STEP 3: success -->
+    @if (step() === 3) {
+      <div class="text-center pt-24">
+        <div class="mx-auto size-20 rounded-full bg-[#e3f3f1] flex items-center justify-center text-4xl">✅</div>
+        <h1 class="font-extrabold text-2xl text-[#1e2d2c] mt-6">{{ 'onb.esuccess.title' | translate }}</h1>
+        <p class="text-[#6b8280] mt-2">{{ 'onb.esuccess.sub' | translate }}</p>
+        <button type="button" (click)="finish()"
+          class="w-full bg-[#ff8a3d] text-white font-semibold rounded-full py-4 mt-10">
+          {{ 'onb.esuccess.cta' | translate }}
+        </button>
+      </div>
+    }
+  </div>
+</div>
