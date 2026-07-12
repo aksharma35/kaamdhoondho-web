@@ -1,0 +1,9 @@
+{
+  "app": {
+    "name": "Kaamdhoondo"
+  },
+  "landing": {
+    "find_job": "Find a Job",
+    "hire_someone": "Hire Someone"
+  }
+}
