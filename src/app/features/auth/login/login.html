@@ -8,37 +8,93 @@
       </div>
     </a>
 
-    <h1 class="font-extrabold text-2xl text-[#1e2d2c] mt-8">
-      {{ (role === 'worker' ? 'login.titleWorker' : 'login.titleEmployer') | translate }}
-    </h1>
-    <p class="text-[#6b8280] mt-2">{{ 'login.subtitle' | translate }}</p>
+    @if (step() === 'phone') {
+      <h1 class="font-extrabold text-2xl text-[#1e2d2c] mt-8">
+        {{ (role === 'worker' ? 'login.titleWorker' : 'login.titleEmployer') | translate }}
+      </h1>
+      <p class="text-[#6b8280] mt-2">{{ 'login.subtitle' | translate }}</p>
 
-    <div class="flex items-center gap-2 border border-[#d8e8e6] rounded-xl px-4 py-3 mt-6 focus-within:border-[#0f5c56]">
-      <span class="text-[#1e2d2c] font-semibold">+91</span>
-      <input
-        #phone
-        type="tel"
-        inputmode="numeric"
-        maxlength="10"
-        placeholder="98765 43210"
-        class="flex-1 outline-none bg-transparent text-[#1e2d2c]"
-        (input)="error.set(false)"
-        (keyup.enter)="continue(phone.value)"
-      />
-    </div>
+      <div class="flex items-center gap-2 border border-[#d8e8e6] rounded-xl px-4 py-3 mt-6 focus-within:border-[#0f5c56]">
+        <span class="text-[#1e2d2c] font-semibold">+91</span>
+        <input
+          #phoneInput
+          type="tel"
+          inputmode="numeric"
+          maxlength="10"
+          placeholder="98765 43210"
+          [value]="phone()"
+          class="flex-1 outline-none bg-transparent text-[#1e2d2c]"
+          (input)="error.set(false)"
+          (keyup.enter)="continue(phoneInput.value)"
+        />
+      </div>
 
-    @if (error()) {
-      <p class="text-red-600 text-sm mt-2">{{ 'login.error' | translate }}</p>
+      @if (error()) {
+        <p class="text-red-600 text-sm mt-2">{{ 'login.error' | translate }}</p>
+      }
+
+      <button
+        type="button"
+        (click)="continue(phoneInput.value)"
+        class="w-full bg-[#ff8a3d] text-white font-semibold rounded-full py-4 mt-6"
+      >
+        {{ 'login.send' | translate }}
+      </button>
+
+      <p class="text-[#6b8280] text-xs text-center mt-4">{{ 'login.note' | translate }}</p>
+    } @else {
+      <h1 class="font-extrabold text-2xl text-[#1e2d2c] mt-8">{{ 'login.otpTitle' | translate }}</h1>
+      <p class="text-[#6b8280] mt-2">
+        {{ 'login.sentTo' | translate: { phone: formattedPhone } }}
+      </p>
+
+      <div class="flex items-center justify-between gap-2 mt-6">
+        @for (d of digits(); track $index) {
+          <input
+            #otpBox
+            type="text"
+            inputmode="numeric"
+            maxlength="1"
+            [value]="d"
+            class="w-12 h-14 text-center text-xl font-bold rounded-xl border outline-none"
+            [class]="d ? 'bg-[#eaf6f5] border-[#0f5c56]' : 'bg-[#fdf8ec] border-[#d8e8e6]'"
+            (input)="onDigitInput($index, $any($event.target).value)"
+            (keydown)="onDigitKeydown($index, $event)"
+            (paste)="onDigitPaste($event)"
+          />
+        }
+      </div>
+
+      @if (otpError()) {
+        <p class="text-red-600 text-sm mt-2">{{ 'login.otpError' | translate }}</p>
+      }
+
+      <p class="text-[#6b8280] text-sm text-center mt-4">
+        @if (resendSeconds() > 0) {
+          {{ 'login.resendIn' | translate: { s: resendSeconds() } }}
+        } @else {
+          <button type="button" (click)="resend()" class="text-[#0f5c56] font-semibold underline">
+            {{ 'login.resend' | translate }}
+          </button>
+        }
+      </p>
+
+      <button
+        type="button"
+        [disabled]="verifying()"
+        (click)="verify()"
+        class="w-full bg-[#ff8a3d] text-white font-semibold rounded-full py-4 mt-6 disabled:opacity-60"
+      >
+        {{ (verifying() ? 'login.verifying' : 'login.verify') | translate }}
+      </button>
+
+      <button
+        type="button"
+        (click)="changeNumber()"
+        class="w-full text-[#0f5c56] font-semibold text-sm text-center mt-4"
+      >
+        {{ 'login.changeNumber' | translate }}
+      </button>
     }
-
-    <button
-      type="button"
-      (click)="continue(phone.value)"
-      class="w-full bg-[#ff8a3d] text-white font-semibold rounded-full py-4 mt-6"
-    >
-      {{ 'login.send' | translate }}
-    </button>
-
-    <p class="text-[#6b8280] text-xs text-center mt-4">{{ 'login.note' | translate }}</p>
   </div>
 </div>

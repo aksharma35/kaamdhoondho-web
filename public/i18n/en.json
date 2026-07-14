@@ -68,7 +68,15 @@
     "subtitle": "Enter your mobile number",
     "error": "Please enter a valid 10-digit mobile number",
     "send": "Send OTP",
-    "note": "OTP verification arrives with the backend — this is a preview build."
+    "note": "OTP verification arrives with the backend — this is a preview build.",
+    "otpTitle": "Enter OTP",
+    "sentTo": "Sent to {{phone}}",
+    "otpError": "Please enter the 6-digit OTP",
+    "verify": "Verify",
+    "verifying": "Verifying…",
+    "changeNumber": "Change number",
+    "resendIn": "Resend OTP in {{s}}s",
+    "resend": "Resend OTP"
   },
   "home": {
     "logout": "Logout",
