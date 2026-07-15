@@ -85,6 +85,59 @@
     "employerTitle": "Marketplace",
     "employerEmpty": "Nearby workers will appear here."
   },
+  "tabs": {
+    "findWork": "Find Work",
+    "applications": "Applications",
+    "profile": "Profile",
+    "settings": "Settings"
+  },
+  "jobs": {
+    "title": "Find Work",
+    "subtitle": "Nearby jobs matched to your skills",
+    "month": "month",
+    "distanceAway": "{{n}} km away",
+    "postedDaysAgo": "Posted {{n}} days ago",
+    "skip": "Skip",
+    "interested": "Interested",
+    "emptyTitle": "No more jobs nearby",
+    "emptyMessage": "Check back soon for new matches",
+    "mock": {
+      "note1": "Min 2 years experience, household wiring work",
+      "note2": "Morning shift, North Indian cuisine preferred",
+      "note3": "Daily cleaning and cooking, 6 days a week",
+      "note4": "Own two-wheeler license required",
+      "note5": "Custom furniture work, tools provided",
+      "note6": "2 BHK interior painting, 5-day job"
+    }
+  },
+  "apps": {
+    "title": "My Applications",
+    "subtitle": "Jobs you've applied to",
+    "appliedChip": "Applied",
+    "emptyTitle": "No applications yet",
+    "emptyMessage": "Start exploring jobs and apply",
+    "emptyCta": "Find Work"
+  },
+  "profilePage": {
+    "title": "My Profile",
+    "subtitle": "How employers see you",
+    "skillsTitle": "My Skills",
+    "expTitle": "Experience",
+    "payTitle": "Expected pay",
+    "editProfile": "Edit profile"
+  },
+  "settingsPage": {
+    "title": "Settings",
+    "subtitle": "Manage your account",
+    "language": "Language",
+    "languageSub": "Change app language",
+    "notifications": "Notifications",
+    "notificationsSub": "Job match and application alerts",
+    "help": "Help & Support",
+    "helpSub": "Get help using Kaamdhoondo",
+    "comingSoon": "Coming soon",
+    "logout": "Log out"
+  },
   "onb": {
     "step": "Step {{n}} of {{total}}",
     "continue": "Continue",

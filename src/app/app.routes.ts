@@ -39,8 +39,34 @@ export const routes: Routes = [
     path: 'worker',
     canActivate: [authGuard, profileGuard],
     data: { role: 'worker' },
-    title: 'Find Work — Kaamdhoondo',
-    loadComponent: () => import('./features/worker/home/worker-home').then((m) => m.WorkerHome),
+    loadComponent: () =>
+      import('./layouts/worker-shell/worker-shell').then((m) => m.WorkerShell),
+    children: [
+      {
+        path: '',
+        title: 'Find Work — Kaamdhoondo',
+        loadComponent: () =>
+          import('./features/worker/find-work/find-work').then((m) => m.FindWork),
+      },
+      {
+        path: 'applications',
+        title: 'My Applications — Kaamdhoondo',
+        loadComponent: () =>
+          import('./features/worker/applications/applications').then((m) => m.Applications),
+      },
+      {
+        path: 'profile',
+        title: 'My Profile — Kaamdhoondo',
+        loadComponent: () =>
+          import('./features/worker/profile/profile').then((m) => m.WorkerProfile),
+      },
+      {
+        path: 'settings',
+        title: 'Settings — Kaamdhoondo',
+        loadComponent: () =>
+          import('./features/worker/settings/settings').then((m) => m.WorkerSettings),
+      },
+    ],
   },
   {
     path: 'employer',

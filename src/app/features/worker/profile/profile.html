@@ -1,0 +1,56 @@
+<div>
+  <div class="bg-[#0f5c56] px-6 pt-6 pb-16">
+    <h1 class="font-extrabold text-2xl text-white">{{ 'profilePage.title' | translate }}</h1>
+    <p class="text-[#d7ece9] text-sm mt-1">{{ 'profilePage.subtitle' | translate }}</p>
+  </div>
+
+  <div class="px-6 -mt-10">
+    <div class="bg-white rounded-3xl shadow-md border border-[#d8e8e6] p-6 text-center relative">
+      <div class="mx-auto size-20 rounded-full bg-[#e3f3f1] flex items-center justify-center text-4xl border-4 border-white shadow -mt-14">
+        {{ profile.worker().hasVideo ? '🎥' : '👷' }}
+      </div>
+      <a routerLink="/onboarding/worker" aria-label="Edit profile"
+        class="absolute right-8 top-8 size-8 rounded-full bg-[#ff8a3d] text-white flex items-center justify-center text-sm">
+        ✎
+      </a>
+
+      <p class="font-extrabold text-xl text-[#1e2d2c] mt-4">
+        {{ profile.worker().name }}@if (profile.worker().age) {, {{ profile.worker().age }}}
+      </p>
+      <p class="text-[#6b8280] text-sm mt-1">📍 {{ profile.worker().locality }}</p>
+
+      <p class="text-sm font-semibold text-[#1e2d2c] text-left mt-6">{{ 'profilePage.skillsTitle' | translate }}</p>
+      <div class="flex flex-wrap gap-2 mt-3">
+        @for (s of profile.worker().skills; track s) {
+          <span class="bg-[#cdeae5] text-[#0f5c56] text-sm rounded-full px-3 py-1.5">
+            {{ 'landing.categories.' + s | translate }}
+          </span>
+        }
+      </div>
+
+      @if (profile.worker().note) {
+        <p class="text-[#1e2d2c] text-sm text-left mt-4 bg-[#fdf8ec] border border-[#e4eceb] rounded-xl p-3">
+          {{ profile.worker().note }}
+        </p>
+      }
+
+      <div class="text-left mt-6 border-t border-[#e4eceb] pt-4">
+        @if (profile.worker().expYears) {
+          <p class="text-[#6b8280] text-sm">
+            {{ 'onb.w3.exp' | translate: { n: profile.worker().expYears } }}
+          </p>
+        }
+        @if (profile.worker().pay) {
+          <p class="text-[#6b8280] text-sm mt-1">
+            {{ 'profilePage.payTitle' | translate }}: ₹{{ profile.worker().pay }}
+          </p>
+        }
+      </div>
+
+      <a routerLink="/onboarding/worker"
+        class="w-full block bg-[#ff8a3d] text-white font-semibold rounded-full py-3.5 mt-6 transition hover:bg-[#e97c2f]">
+        {{ 'profilePage.editProfile' | translate }}
+      </a>
+    </div>
+  </div>
+</div>

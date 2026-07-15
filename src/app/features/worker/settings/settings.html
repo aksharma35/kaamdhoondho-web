@@ -1,0 +1,40 @@
+<div class="px-6 py-6">
+  <h1 class="font-extrabold text-2xl text-[#1e2d2c]">{{ 'settingsPage.title' | translate }}</h1>
+  <p class="text-[#6b8280] text-sm mt-1">{{ 'settingsPage.subtitle' | translate }}</p>
+
+  <div class="flex flex-col gap-3 mt-6">
+    <button type="button" (click)="lang.toggle()"
+      class="bg-white border border-[#d8e8e6] rounded-2xl p-4 flex items-center justify-between text-left">
+      <div>
+        <p class="font-semibold text-[#1e2d2c]">{{ 'settingsPage.language' | translate }}</p>
+        <p class="text-[#6b8280] text-sm">{{ 'settingsPage.languageSub' | translate }}</p>
+      </div>
+      <span class="bg-[#e3f3f1] text-sm rounded-full px-4 py-1.5 shrink-0">
+        <span [class]="lang.current() === 'en' ? 'font-bold text-[#0f5c56]' : 'text-[#6b8280]'">EN</span>
+        <span class="text-[#6b8280]">&nbsp;|&nbsp;</span>
+        <span [class]="lang.current() === 'hi' ? 'font-bold text-[#0f5c56]' : 'text-[#6b8280]'">HI</span>
+      </span>
+    </button>
+
+    <div class="bg-white border border-[#d8e8e6] rounded-2xl p-4 flex items-center justify-between opacity-50">
+      <div>
+        <p class="font-semibold text-[#1e2d2c]">{{ 'settingsPage.notifications' | translate }}</p>
+        <p class="text-[#6b8280] text-sm">{{ 'settingsPage.notificationsSub' | translate }}</p>
+      </div>
+      <span class="text-xs text-[#6b8280] shrink-0">{{ 'settingsPage.comingSoon' | translate }}</span>
+    </div>
+
+    <div class="bg-white border border-[#d8e8e6] rounded-2xl p-4 flex items-center justify-between opacity-50">
+      <div>
+        <p class="font-semibold text-[#1e2d2c]">{{ 'settingsPage.help' | translate }}</p>
+        <p class="text-[#6b8280] text-sm">{{ 'settingsPage.helpSub' | translate }}</p>
+      </div>
+      <span class="text-xs text-[#6b8280] shrink-0">{{ 'settingsPage.comingSoon' | translate }}</span>
+    </div>
+
+    <button type="button" (click)="logout()"
+      class="bg-white border border-[#d8e8e6] rounded-2xl p-4 text-left font-semibold text-red-600 mt-3">
+      {{ 'settingsPage.logout' | translate }}
+    </button>
+  </div>
+</div>
