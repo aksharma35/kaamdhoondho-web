@@ -1,0 +1,26 @@
+@if (open()) {
+  <div
+    class="fixed inset-0 z-50 bg-black/50 flex items-end lg:items-center lg:justify-center"
+    (click)="closed.emit()"
+  >
+    <div
+      (click)="$event.stopPropagation()"
+      class="relative w-full bg-white rounded-t-3xl lg:rounded-3xl lg:max-w-lg max-h-[90vh] overflow-y-auto"
+    >
+      <div class="flex justify-center pt-3 lg:hidden">
+        <span class="h-1.5 w-12 rounded-full bg-[#d8e8e6]"></span>
+      </div>
+      <button
+        type="button"
+        (click)="closed.emit()"
+        aria-label="Close"
+        class="absolute top-4 right-4 size-9 rounded-full bg-white border border-[#e4eceb] shadow flex items-center justify-center text-[#6b8280] text-lg"
+      >
+        &times;
+      </button>
+      <div class="px-6 pb-6 pt-2">
+        <ng-content />
+      </div>
+    </div>
+  </div>
+}

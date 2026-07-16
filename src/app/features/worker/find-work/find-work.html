@@ -3,7 +3,10 @@
   <p class="text-[#6b8280] text-sm mt-1">{{ 'jobs.subtitle' | translate }}</p>
 
   @if (current(); as job) {
-    <div class="bg-white rounded-3xl overflow-hidden shadow-md border border-[#d8e8e6] mt-6">
+    <div
+      (click)="openDetail(job)"
+      class="bg-white rounded-3xl overflow-hidden shadow-md border border-[#d8e8e6] mt-6 cursor-pointer"
+    >
       <div class="bg-[#0f5c56] h-40 flex items-center justify-center text-6xl relative">
         <span class="absolute top-4 left-4 bg-[#ffd166] text-[#1e2d2c] text-sm font-bold rounded-full px-3 py-1">
           ₹{{ job.payPerMonth | number }}/{{ 'jobs.month' | translate }}
@@ -47,3 +50,5 @@
     </div>
   }
 </div>
+
+<app-job-detail [job]="selectedJob()" (closed)="selectedJob.set(null)" (passed)="onPassed($event)" />

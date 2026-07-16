@@ -147,10 +147,31 @@
     "title": "My Jobs",
     "subtitle": "Jobs you've posted",
     "applicantsCount": "{{n}} applicants",
-    "contactComingSoon": "Contact — coming soon",
+    "viewProfile": "View profile",
     "emptyTitle": "No jobs posted yet",
     "emptyMessage": "Post your first job to find workers nearby",
     "emptyCta": "Post a Job"
+  },
+  "detail": {
+    "skills": "Skills",
+    "videoProfile": "Video Profile",
+    "about": "About",
+    "contact": "Contact",
+    "apply": "Apply"
+  },
+  "contact": {
+    "callNow": "Call Now",
+    "or": "or",
+    "chatComingSoon": "Chat instead — coming soon",
+    "securely": "Number shared securely",
+    "didYouHire": "Did you hire them?",
+    "yes": "Yes",
+    "notYet": "Not yet"
+  },
+  "hired": {
+    "title": "Hired!",
+    "sub": "You've marked {{name}} as hired",
+    "done": "Done"
   },
   "apps": {
     "title": "My Applications",

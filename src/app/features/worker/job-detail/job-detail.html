@@ -1,0 +1,42 @@
+<app-sheet [open]="!!job()" (closed)="close()">
+  @if (job(); as j) {
+    <div class="relative bg-[#0f5c56] h-40 rounded-3xl overflow-hidden flex items-center justify-center text-6xl">
+      <span class="absolute top-4 left-4 bg-[#ffd166] text-[#1e2d2c] text-sm font-bold rounded-full px-3 py-1">
+        ₹{{ j.payPerMonth | number }}/{{ 'jobs.month' | translate }}
+      </span>
+      {{ emoji(j) }}
+    </div>
+
+    <p class="font-extrabold text-xl text-[#1e2d2c] mt-5">{{ j.employerName }}</p>
+    <span class="inline-block bg-[#cdeae5] text-[#0f5c56] text-sm font-semibold rounded-full px-3 py-1.5 mt-2">
+      {{ 'landing.categories.' + j.category | translate }}
+    </span>
+
+    <p class="text-[#6b8280] text-sm mt-3">
+      📍 {{ j.locality }}, {{ 'jobs.distanceAway' | translate: { n: j.distanceKm } }}
+    </p>
+    <p class="text-[#6b8280] text-xs mt-2">{{ 'jobs.postedDaysAgo' | translate: { n: j.postedDaysAgo } }}</p>
+
+    <p class="font-semibold text-[#1e2d2c] mt-5">{{ 'detail.about' | translate }}</p>
+    <p class="text-[#1e2d2c] text-sm mt-2 bg-[#eaf6f5] border border-[#d8e8e6] rounded-xl p-3">
+      {{ j.note | translate }}
+    </p>
+
+    <div class="flex gap-3 mt-6">
+      <button
+        type="button"
+        (click)="pass(j)"
+        class="flex-1 border-2 border-[#0f5c56] text-[#0f5c56] font-semibold rounded-full py-3.5"
+      >
+        {{ 'jobs.skip' | translate }}
+      </button>
+      <button
+        type="button"
+        (click)="apply(j)"
+        class="flex-1 bg-[#ff8a3d] text-white font-semibold rounded-full py-3.5 transition hover:bg-[#e97c2f]"
+      >
+        {{ 'detail.apply' | translate }}
+      </button>
+    </div>
+  }
+</app-sheet>

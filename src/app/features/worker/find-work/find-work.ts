@@ -3,10 +3,11 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Job, JobsService } from '../../../core/jobs/jobs.service';
 import { SKILL_CATEGORIES } from '../../../shared/constants/categories';
+import { JobDetail } from '../job-detail/job-detail';
 
 @Component({
   selector: 'app-find-work',
-  imports: [TranslatePipe, DecimalPipe],
+  imports: [TranslatePipe, DecimalPipe, JobDetail],
   templateUrl: './find-work.html',
 })
 export class FindWork {
@@ -14,6 +15,7 @@ export class FindWork {
   private categoryEmoji = new Map(SKILL_CATEGORIES.map((c) => [c.key, c.emoji]));
 
   private index = signal(0);
+  readonly selectedJob = signal<Job | null>(null);
 
   readonly queue = computed(() =>
     this.jobsService.jobs().filter((j) => !this.jobsService.isApplied(j.id)),
@@ -31,5 +33,14 @@ export class FindWork {
   interested(job: Job): void {
     this.jobsService.apply(job.id);
     // queue shrinks by one now that this job is applied — stay at the same index
+  }
+
+  openDetail(job: Job): void {
+    this.selectedJob.set(job);
+  }
+
+  onPassed(job: Job): void {
+    this.pass();
+    this.selectedJob.set(null);
   }
 }

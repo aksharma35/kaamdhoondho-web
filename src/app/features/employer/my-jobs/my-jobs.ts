@@ -4,10 +4,11 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { PostedJob, PostedJobsService } from '../../../core/jobs/posted-jobs.service';
 import { SKILL_CATEGORIES } from '../../../shared/constants/categories';
 import { Worker } from '../../../core/workers/workers.service';
+import { WorkerDetail } from '../worker-detail/worker-detail';
 
 @Component({
   selector: 'app-my-jobs',
-  imports: [TranslatePipe, RouterLink],
+  imports: [TranslatePipe, RouterLink, WorkerDetail],
   templateUrl: './my-jobs.html',
 })
 export class MyJobs {
@@ -16,6 +17,7 @@ export class MyJobs {
 
   readonly jobs = computed(() => this.postedJobsService.postedJobs());
   readonly expandedId = signal<string | null>(null);
+  readonly selectedWorker = signal<Worker | null>(null);
 
   emoji(job: PostedJob): string {
     return this.categoryEmoji.get(job.category) ?? '💼';
@@ -27,5 +29,9 @@ export class MyJobs {
 
   applicants(job: PostedJob): Worker[] {
     return this.postedJobsService.applicants(job);
+  }
+
+  openProfile(worker: Worker): void {
+    this.selectedWorker.set(worker);
   }
 }

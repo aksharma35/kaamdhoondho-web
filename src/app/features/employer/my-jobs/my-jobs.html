@@ -34,9 +34,9 @@
                     {{ 'landing.categories.' + worker.category | translate }} ·
                     {{ 'onb.w3.exp' | translate: { n: worker.expYears } }}
                   </p>
-                  <button type="button" disabled
-                    class="w-full text-xs font-semibold text-[#6b8280] bg-white border border-[#e4eceb] rounded-full px-3 py-1.5 mt-2 opacity-60">
-                    {{ 'myJobs.contactComingSoon' | translate }}
+                  <button type="button" (click)="openProfile(worker)"
+                    class="w-full text-xs font-semibold text-[#0f5c56] bg-white border border-[#0f5c56] rounded-full px-3 py-1.5 mt-2">
+                    {{ 'myJobs.viewProfile' | translate }}
                   </button>
                 </div>
               }
@@ -57,3 +57,5 @@
     </div>
   }
 </div>
+
+<app-worker-detail [worker]="selectedWorker()" (closed)="selectedWorker.set(null)" />
