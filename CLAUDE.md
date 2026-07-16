@@ -21,6 +21,21 @@ illustrative — the app shows ONE language at a time, default English, EN|HI to
   pattern for new mock data; never auto-publish AI-extracted values without user confirmation.
 - Keep it lazy: reuse before writing, no speculative abstractions, shortest working diff.
 
+## Desktop (lg+) layout rules — do not ship phone columns on web
+
+The Figma has web frames only for: landing (1:2), role selection (24:2), marketplace grids
+(74:2 employer, 78:2 worker), detail modals (81:2, 83:2). For every other screen the mobile
+frame defines CONTENT and STYLE, and these rules define the desktop LAYOUT:
+
+- Focused single-task screens (auth/OTP, onboarding steps, success states): centered card
+  (max-w-md) is correct on desktop — keep it.
+- Tabbed app screens (worker/employer shells): on lg+ the bottom tab bar becomes a left
+  sidebar (brand at top, nav items with icon+label, active = mint bg + teal text); content
+  area uses the freed width — lists become 2-col grids, cards get max-w-2xl, forms may go
+  two-column. Below lg, keep the mobile bottom-tab layout.
+- Detail views: bottom sheet on mobile, centered modal with overlay on lg+ (per 81:2/83:2).
+- Never present a lone 390px column with dead space on both sides for browsing/list screens.
+
 ## Commands
 
 - Dev server: `npm start` (preview launch config name: `web`, port 4200).
