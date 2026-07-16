@@ -1,0 +1,21 @@
+<div class="min-h-screen bg-[#fffbf2] flex justify-center">
+  <div class="w-full max-w-md pb-20">
+    <router-outlet />
+  </div>
+
+  <nav class="fixed bottom-0 inset-x-0 bg-white border-t border-[#d8e8e6]">
+    <div class="max-w-md mx-auto grid grid-cols-4">
+      @for (tab of tabs; track tab.path) {
+        <a
+          [routerLink]="tab.path"
+          routerLinkActive="text-[#0f5c56] font-semibold"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="flex flex-col items-center gap-1 py-2.5 text-[#6b8280] text-xs"
+        >
+          <span class="text-xl leading-none">{{ tab.icon }}</span>
+          <span>{{ tab.label | translate }}</span>
+        </a>
+      }
+    </div>
+  </nav>
+</div>

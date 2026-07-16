@@ -1,0 +1,60 @@
+<div class="px-6 py-6">
+  @if (step() === 'form') {
+    <h1 class="font-extrabold text-2xl text-[#1e2d2c]">{{ 'postJob.title' | translate }}</h1>
+    <p class="text-[#6b8280] text-sm mt-1">{{ 'postJob.subtitle' | translate }}</p>
+
+    <p class="text-sm font-semibold text-[#1e2d2c] mt-8">{{ 'postJob.category' | translate }}</p>
+    <div class="flex flex-wrap gap-2 mt-3">
+      @for (c of categories; track c.key) {
+        <button type="button" (click)="selectCategory(c.key)"
+          [class]="'rounded-full px-4 py-2 text-sm border transition ' +
+            (category() === c.key
+              ? 'bg-[#cdeae5] border-[#0f5c56] text-[#0f5c56] font-semibold'
+              : 'bg-white border-[#e4eceb] text-[#1e2d2c]')">
+          {{ c.emoji }} {{ 'landing.categories.' + c.key | translate }}
+        </button>
+      }
+    </div>
+
+    <label class="block mt-6 text-sm font-semibold text-[#1e2d2c]">{{ 'postJob.headcount' | translate }}</label>
+    <input #headcount type="tel" inputmode="numeric" maxlength="2" placeholder="e.g. 2"
+      class="w-32 bg-[#fdf8ec] border border-[#e4eceb] rounded-xl px-4 py-3 mt-2 outline-none focus:border-[#0f5c56]" />
+
+    <label class="block mt-5 text-sm font-semibold text-[#1e2d2c]">{{ 'postJob.pay' | translate }}</label>
+    <input #pay type="tel" inputmode="numeric" placeholder="₹ 15,000"
+      class="w-full bg-[#fdf8ec] border border-[#e4eceb] rounded-xl px-4 py-3 mt-2 outline-none focus:border-[#0f5c56]" />
+
+    <label class="block mt-5 text-sm font-semibold text-[#1e2d2c]">{{ 'postJob.locality' | translate }}</label>
+    <input #locality [value]="profile.employer().locality" type="text"
+      class="w-full bg-[#fdf8ec] border border-[#e4eceb] rounded-xl px-4 py-3 mt-2 outline-none focus:border-[#0f5c56]" />
+
+    <label class="block mt-5 text-sm font-semibold text-[#1e2d2c]">{{ 'postJob.note' | translate }}</label>
+    <textarea #note rows="3" [placeholder]="'postJob.notePh' | translate"
+      class="w-full bg-[#fdf8ec] border border-[#e4eceb] rounded-xl px-4 py-3 mt-2 outline-none focus:border-[#0f5c56]"></textarea>
+
+    @if (error()) {
+      <p class="text-red-600 text-sm mt-4">{{ error() | translate }}</p>
+    }
+
+    <button type="button" (click)="submit(headcount.value, pay.value, locality.value, note.value)"
+      class="w-full bg-[#ff8a3d] text-white font-semibold rounded-full py-4 mt-8 transition hover:bg-[#e97c2f]">
+      {{ 'postJob.submit' | translate }}
+    </button>
+  }
+
+  @if (step() === 'success') {
+    <div class="text-center pt-24">
+      <div class="mx-auto size-20 rounded-full bg-[#e3f3f1] flex items-center justify-center text-4xl">✅</div>
+      <h1 class="font-extrabold text-2xl text-[#1e2d2c] mt-6">{{ 'postJob.success.title' | translate }}</h1>
+      <p class="text-[#6b8280] mt-2">{{ 'postJob.success.sub' | translate }}</p>
+      <button type="button" (click)="viewMyJobs()"
+        class="w-full bg-[#ff8a3d] text-white font-semibold rounded-full py-4 mt-10">
+        {{ 'postJob.success.viewJobs' | translate }}
+      </button>
+      <button type="button" (click)="postAnother()"
+        class="w-full border-2 border-[#0f5c56] text-[#0f5c56] font-semibold rounded-full py-4 mt-3">
+        {{ 'postJob.success.postAnother' | translate }}
+      </button>
+    </div>
+  }
+</div>

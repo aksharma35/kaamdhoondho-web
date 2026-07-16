@@ -63,8 +63,7 @@ export const routes: Routes = [
       {
         path: 'settings',
         title: 'Settings — Kaamdhoondo',
-        loadComponent: () =>
-          import('./features/worker/settings/settings').then((m) => m.WorkerSettings),
+        loadComponent: () => import('./features/settings/settings').then((m) => m.SettingsPage),
       },
     ],
   },
@@ -72,9 +71,32 @@ export const routes: Routes = [
     path: 'employer',
     canActivate: [authGuard, profileGuard],
     data: { role: 'employer' },
-    title: 'Marketplace — Kaamdhoondo',
     loadComponent: () =>
-      import('./features/employer/home/employer-home').then((m) => m.EmployerHome),
+      import('./layouts/employer-shell/employer-shell').then((m) => m.EmployerShell),
+    children: [
+      {
+        path: '',
+        title: 'Marketplace — Kaamdhoondo',
+        loadComponent: () =>
+          import('./features/employer/marketplace/marketplace').then((m) => m.Marketplace),
+      },
+      {
+        path: 'post-job',
+        title: 'Post a Job — Kaamdhoondo',
+        loadComponent: () =>
+          import('./features/employer/post-job/post-job').then((m) => m.PostJob),
+      },
+      {
+        path: 'my-jobs',
+        title: 'My Jobs — Kaamdhoondo',
+        loadComponent: () => import('./features/employer/my-jobs/my-jobs').then((m) => m.MyJobs),
+      },
+      {
+        path: 'settings',
+        title: 'Settings — Kaamdhoondo',
+        loadComponent: () => import('./features/settings/settings').then((m) => m.SettingsPage),
+      },
+    ],
   },
   { path: '**', redirectTo: '' },
 ];

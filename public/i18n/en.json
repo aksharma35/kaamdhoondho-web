@@ -78,18 +78,14 @@
     "resendIn": "Resend OTP in {{s}}s",
     "resend": "Resend OTP"
   },
-  "home": {
-    "logout": "Logout",
-    "workerTitle": "Find Work",
-    "workerEmpty": "Nearby jobs will appear here.",
-    "employerTitle": "Marketplace",
-    "employerEmpty": "Nearby workers will appear here."
-  },
   "tabs": {
     "findWork": "Find Work",
     "applications": "Applications",
     "profile": "Profile",
-    "settings": "Settings"
+    "settings": "Settings",
+    "marketplace": "Marketplace",
+    "postJob": "Post a Job",
+    "myJobs": "My Jobs"
   },
   "jobs": {
     "title": "Find Work",
@@ -109,6 +105,52 @@
       "note5": "Custom furniture work, tools provided",
       "note6": "2 BHK interior painting, 5-day job"
     }
+  },
+  "market": {
+    "title": "Marketplace",
+    "subtitle": "Nearby workers matched to your jobs",
+    "videoBadge": "Video",
+    "pass": "Pass",
+    "shortlist": "Shortlist",
+    "emptyTitle": "No more workers nearby",
+    "emptyMessage": "Check back soon for new matches"
+  },
+  "workers": {
+    "mock": {
+      "note1": "Available immediately, own tools",
+      "note2": "Prefers daytime shifts, 6 days a week",
+      "note3": "Clean driving record, knows the city well",
+      "note4": "North and South Indian cuisine",
+      "note5": "Custom furniture and repairs",
+      "note6": "Interior and exterior painting"
+    }
+  },
+  "postJob": {
+    "title": "Post a Job",
+    "subtitle": "Find workers for your job",
+    "category": "What kind of worker do you need?",
+    "headcount": "How many people?",
+    "pay": "Pay offered (₹/month)",
+    "locality": "Work locality",
+    "note": "Anything else? (optional)",
+    "notePh": "e.g. Immediate joining preferred",
+    "submit": "Post Job",
+    "errRequired": "Please fill the required fields",
+    "success": {
+      "title": "Job Posted!",
+      "sub": "You'll start receiving applications soon",
+      "viewJobs": "View my jobs",
+      "postAnother": "Post another"
+    }
+  },
+  "myJobs": {
+    "title": "My Jobs",
+    "subtitle": "Jobs you've posted",
+    "applicantsCount": "{{n}} applicants",
+    "contactComingSoon": "Contact — coming soon",
+    "emptyTitle": "No jobs posted yet",
+    "emptyMessage": "Post your first job to find workers nearby",
+    "emptyCta": "Post a Job"
   },
   "apps": {
     "title": "My Applications",
