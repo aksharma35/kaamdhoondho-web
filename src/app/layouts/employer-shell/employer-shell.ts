@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { AuthService } from '../../core/auth/auth.service';
 
 const TABS = [
-  { path: '', icon: '🔍', label: 'tabs.marketplace' },
-  { path: 'post-job', icon: '➕', label: 'tabs.postJob' },
-  { path: 'my-jobs', icon: '🗂️', label: 'tabs.myJobs' },
-  { path: 'settings', icon: '⚙️', label: 'tabs.settings' },
+  { path: '/employer', icon: '🔍', label: 'tabs.marketplace' },
+  { path: '/employer/post-job', icon: '➕', label: 'tabs.postJob' },
+  { path: '/employer/my-jobs', icon: '🗂️', label: 'tabs.myJobs' },
+  { path: '/employer/settings', icon: '⚙️', label: 'tabs.settings' },
 ] as const;
 
 @Component({
@@ -16,4 +17,11 @@ const TABS = [
 })
 export class EmployerShell {
   readonly tabs = TABS;
+  private auth = inject(AuthService);
+  private router = inject(Router);
+
+  logout(): void {
+    this.auth.logout();
+    this.router.navigateByUrl('/');
+  }
 }

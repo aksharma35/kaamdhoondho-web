@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { AuthService } from '../../core/auth/auth.service';
 
 const TABS = [
-  { path: '', icon: '💼', label: 'tabs.findWork' },
-  { path: 'applications', icon: '📋', label: 'tabs.applications' },
-  { path: 'profile', icon: '👤', label: 'tabs.profile' },
-  { path: 'settings', icon: '⚙️', label: 'tabs.settings' },
+  { path: '/worker', icon: '💼', label: 'tabs.findWork' },
+  { path: '/worker/applications', icon: '📋', label: 'tabs.applications' },
+  { path: '/worker/profile', icon: '👤', label: 'tabs.profile' },
+  { path: '/worker/settings', icon: '⚙️', label: 'tabs.settings' },
 ] as const;
 
 @Component({
@@ -16,4 +17,11 @@ const TABS = [
 })
 export class WorkerShell {
   readonly tabs = TABS;
+  private auth = inject(AuthService);
+  private router = inject(Router);
+
+  logout(): void {
+    this.auth.logout();
+    this.router.navigateByUrl('/');
+  }
 }

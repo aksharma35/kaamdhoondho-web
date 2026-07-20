@@ -14,25 +14,30 @@ export class Marketplace {
   private workersService = inject(WorkersService);
   private categoryEmoji = new Map(SKILL_CATEGORIES.map((c) => [c.key, c.emoji]));
 
-  private index = signal(0);
+  // session-only: passed workers return on reload, shortlisted ones don't
+  private passedIds = signal<Set<string>>(new Set());
   readonly selectedWorker = signal<Worker | null>(null);
 
   readonly queue = computed(() =>
-    this.workersService.workers().filter((w) => !this.workersService.isShortlisted(w.id)),
+    this.workersService
+      .workers()
+      .filter((w) => !this.workersService.isShortlisted(w.id) && !this.passedIds().has(w.id)),
   );
-  readonly current = computed<Worker | undefined>(() => this.queue()[this.index()]);
+  /** Mobile single-card stack shows the head of the queue. */
+  readonly current = computed<Worker | undefined>(() => this.queue()[0]);
 
   emoji(worker: Worker): string {
     return this.categoryEmoji.get(worker.category) ?? '👷';
   }
 
-  pass(): void {
-    this.index.update((i) => i + 1);
+  pass(worker: Worker): void {
+    const next = new Set(this.passedIds());
+    next.add(worker.id);
+    this.passedIds.set(next);
   }
 
   shortlist(worker: Worker): void {
     this.workersService.shortlist(worker.id);
-    // queue shrinks by one now that this worker is shortlisted — stay at the same index
   }
 
   openDetail(worker: Worker): void {

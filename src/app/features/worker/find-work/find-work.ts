@@ -14,25 +14,30 @@ export class FindWork {
   private jobsService = inject(JobsService);
   private categoryEmoji = new Map(SKILL_CATEGORIES.map((c) => [c.key, c.emoji]));
 
-  private index = signal(0);
+  // session-only: passed jobs return on reload, applied ones don't
+  private passedIds = signal<Set<string>>(new Set());
   readonly selectedJob = signal<Job | null>(null);
 
   readonly queue = computed(() =>
-    this.jobsService.jobs().filter((j) => !this.jobsService.isApplied(j.id)),
+    this.jobsService
+      .jobs()
+      .filter((j) => !this.jobsService.isApplied(j.id) && !this.passedIds().has(j.id)),
   );
-  readonly current = computed<Job | undefined>(() => this.queue()[this.index()]);
+  /** Mobile single-card stack shows the head of the queue. */
+  readonly current = computed<Job | undefined>(() => this.queue()[0]);
 
   emoji(job: Job): string {
     return this.categoryEmoji.get(job.category) ?? '💼';
   }
 
-  pass(): void {
-    this.index.update((i) => i + 1);
+  pass(job: Job): void {
+    const next = new Set(this.passedIds());
+    next.add(job.id);
+    this.passedIds.set(next);
   }
 
   interested(job: Job): void {
     this.jobsService.apply(job.id);
-    // queue shrinks by one now that this job is applied — stay at the same index
   }
 
   openDetail(job: Job): void {
@@ -40,7 +45,7 @@ export class FindWork {
   }
 
   onPassed(job: Job): void {
-    this.pass();
+    this.pass(job);
     this.selectedJob.set(null);
   }
 }

@@ -2,45 +2,51 @@
   <h1 class="font-extrabold text-2xl text-[#1e2d2c]">{{ 'jobs.title' | translate }}</h1>
   <p class="text-[#6b8280] text-sm mt-1">{{ 'jobs.subtitle' | translate }}</p>
 
-  @if (current(); as job) {
-    <div
-      (click)="openDetail(job)"
-      class="bg-white rounded-3xl overflow-hidden shadow-md border border-[#d8e8e6] mt-6 cursor-pointer"
-    >
-      <div class="bg-[#0f5c56] h-40 flex items-center justify-center text-6xl relative">
-        <span class="absolute top-4 left-4 bg-[#ffd166] text-[#1e2d2c] text-sm font-bold rounded-full px-3 py-1">
-          ₹{{ job.payPerMonth | number }}/{{ 'jobs.month' | translate }}
-        </span>
-        {{ emoji(job) }}
-      </div>
-      <div class="p-6">
-        <p class="font-extrabold text-xl text-[#1e2d2c]">{{ job.employerName }}</p>
-        <p class="text-[#6b8280] text-sm mt-1">{{ 'landing.categories.' + job.category | translate }}</p>
-        <p class="text-[#6b8280] text-sm mt-2">
-          📍 {{ job.locality }}, {{ 'jobs.distanceAway' | translate: { n: job.distanceKm } }}
-        </p>
-        <p class="text-[#6b8280] text-xs mt-2">
-          {{ 'jobs.postedDaysAgo' | translate: { n: job.postedDaysAgo } }}
-        </p>
-        <p class="text-[#1e2d2c] text-sm mt-4 bg-[#fdf8ec] border border-[#e4eceb] rounded-xl p-3">
-          {{ job.note | translate }}
-        </p>
-      </div>
-    </div>
+  @if (queue().length) {
+    <div class="lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-6 lg:mt-6 lg:items-start">
+      @for (job of queue(); track job.id) {
+        <div [class]="job.id === current()?.id ? '' : 'hidden lg:block'">
+          <div
+            (click)="openDetail(job)"
+            class="bg-white rounded-3xl overflow-hidden shadow-md border border-[#d8e8e6] mt-6 lg:mt-0 cursor-pointer"
+          >
+            <div class="bg-[#0f5c56] h-40 lg:h-32 flex items-center justify-center text-6xl lg:text-5xl relative">
+              <span class="absolute top-4 left-4 bg-[#ffd166] text-[#1e2d2c] text-sm font-bold rounded-full px-3 py-1">
+                ₹{{ job.payPerMonth | number }}/{{ 'jobs.month' | translate }}
+              </span>
+              {{ emoji(job) }}
+            </div>
+            <div class="p-6">
+              <p class="font-extrabold text-xl text-[#1e2d2c]">{{ job.employerName }}</p>
+              <p class="text-[#6b8280] text-sm mt-1">{{ 'landing.categories.' + job.category | translate }}</p>
+              <p class="text-[#6b8280] text-sm mt-2">
+                📍 {{ job.locality }}, {{ 'jobs.distanceAway' | translate: { n: job.distanceKm } }}
+              </p>
+              <p class="text-[#6b8280] text-xs mt-2">
+                {{ 'jobs.postedDaysAgo' | translate: { n: job.postedDaysAgo } }}
+              </p>
+              <p class="text-[#1e2d2c] text-sm mt-4 bg-[#fdf8ec] border border-[#e4eceb] rounded-xl p-3">
+                {{ job.note | translate }}
+              </p>
+            </div>
+          </div>
 
-    <div class="flex items-center justify-center gap-10 mt-8">
-      <button type="button" (click)="pass()" aria-label="Pass"
-        class="size-16 rounded-full bg-white border border-[#e4eceb] shadow flex items-center justify-center text-2xl text-[#6b8280]">
-        ✕
-      </button>
-      <button type="button" (click)="interested(job)" aria-label="Interested"
-        class="size-16 rounded-full bg-[#ff8a3d] shadow flex items-center justify-center text-2xl text-white">
-        ✓
-      </button>
-    </div>
-    <div class="flex justify-center gap-10 mt-2 text-xs text-[#6b8280]">
-      <span>{{ 'jobs.skip' | translate }}</span>
-      <span class="text-[#0f5c56] font-semibold">{{ 'jobs.interested' | translate }}</span>
+          <div class="flex items-center justify-center gap-10 lg:gap-6 mt-8 lg:mt-4">
+            <button type="button" (click)="pass(job)" [attr.aria-label]="'jobs.skip' | translate"
+              class="size-16 lg:size-12 rounded-full bg-white border border-[#e4eceb] shadow flex items-center justify-center text-2xl lg:text-lg text-[#6b8280]">
+              ✕
+            </button>
+            <button type="button" (click)="interested(job)" [attr.aria-label]="'jobs.interested' | translate"
+              class="size-16 lg:size-12 rounded-full bg-[#ff8a3d] shadow flex items-center justify-center text-2xl lg:text-lg text-white">
+              ✓
+            </button>
+          </div>
+          <div class="flex justify-center gap-10 lg:gap-6 mt-2 mb-2 text-xs text-[#6b8280]">
+            <span>{{ 'jobs.skip' | translate }}</span>
+            <span class="text-[#0f5c56] font-semibold">{{ 'jobs.interested' | translate }}</span>
+          </div>
+        </div>
+      }
     </div>
   } @else {
     <div class="flex flex-col items-center text-center pt-24">

@@ -3,7 +3,7 @@
   <p class="text-[#6b8280] text-sm mt-1">{{ 'myJobs.subtitle' | translate }}</p>
 
   @if (jobs().length) {
-    <div class="flex flex-col gap-3 mt-6">
+    <div class="flex flex-col lg:grid lg:grid-cols-2 lg:items-start gap-3 lg:gap-4 mt-6">
       @for (job of jobs(); track job.id) {
         <div class="bg-white rounded-2xl border border-[#d8e8e6] p-4">
           <button type="button" (click)="toggle(job.id)" class="w-full flex items-center gap-3 text-left">
